@@ -37,7 +37,7 @@ def download_thread_media(url: str, path: Path, max_directory_name_length: int) 
     thread_id = int(response["current_thread"])
     thread_name = thread["posts"][0]["subject"]
 
-    directory_name = f"{board} {thread_id} {thread_name}"
+    directory_name = f'{board} {thread_id} {thread_name.replace("/", "_")}'
     if len(directory_name) > max_directory_name_length:
         directory_name = directory_name[:max_directory_name_length]
 
