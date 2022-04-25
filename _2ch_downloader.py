@@ -68,7 +68,7 @@ def download_file(file: File) -> None:
     except FileNotFoundError:
         pass
     with requests.get(file.url, stream=True) as r:
-        print(f"Downloading {file_name}", file=sys.stderr)
+        print(f"Downloading {file_name} ({file.size} KB)", file=sys.stderr)
         with open(file_name, "wb") as f:
             shutil.copyfileobj(r.raw, f)
 
