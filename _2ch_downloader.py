@@ -8,7 +8,6 @@ import argparse
 import json
 import os
 import re
-import shutil
 import sys
 from dataclasses import dataclass
 from pathlib import Path
@@ -52,7 +51,14 @@ def download_thread_media(url: str, path: Path, max_directory_name_length: int) 
     files: list[File] = []
     for post in thread["posts"]:
         for file in post["files"]:
-            files.append(File(file["fullname"], BASE_URL + file["path"], file["size"], file["name"].split(".")[0]))
+            files.append(
+                File(
+                    file["fullname"],
+                    BASE_URL + file["path"],
+                    file["size"],
+                    file["name"].split(".")[0],
+                )
+            )
 
     for file in files:
         download_file(file)
@@ -66,9 +72,9 @@ def download_file(file: File) -> None:
         print(f"{filename} has been already downloaded", file=sys.stderr)
     else:
         print(f"Downloading {filename} ({file.size} KB)", file=sys.stderr)
-        with requests.get(file.url) as r:
-            with open(filename, "wb") as f:
-                shutil.copyfileobj(r.raw, f)
+        r = requests.get(file.url)
+        with open(filename, "wb") as f:
+            f.write(r.content)
 
 
 def thread_url(url: str) -> str:
