@@ -65,8 +65,8 @@ def download_file(file: File) -> None:
     if os.path.exists(filename):
         print(f"{filename} has been already downloaded", file=sys.stderr)
     else:
+        print(f"Downloading {filename} ({file.size} KB)", file=sys.stderr)
         with requests.get(file.url) as r:
-            print(f"Downloading {filename} ({file.size} KB)", file=sys.stderr)
             with open(filename, "wb") as f:
                 shutil.copyfileobj(r.raw, f)
 
