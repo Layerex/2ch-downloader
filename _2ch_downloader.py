@@ -59,18 +59,18 @@ def download_thread_media(url: str, path: Path, max_directory_name_length: int) 
 
 
 def download_file(file: File) -> None:
-    file_name = f"{file.id} {file.name}"
+    filename = f"{file.id} {file.name}"
     try:
-        st = os.stat(file_name)
+        st = os.stat(filename)
         size = st.st_size // 1024
         if size == file.size:
-            print(f"{file_name} already downloaded", file=sys.stderr)
+            print(f"{filename} already downloaded", file=sys.stderr)
             return
     except FileNotFoundError:
         pass
     with requests.get(file.url, stream=True) as r:
-        print(f"Downloading {file_name} ({file.size} KB)", file=sys.stderr)
-        with open(file_name, "wb") as f:
+        print(f"Downloading {filename} ({file.size} KB)", file=sys.stderr)
+        with open(filename, "wb") as f:
             shutil.copyfileobj(r.raw, f)
 
 
