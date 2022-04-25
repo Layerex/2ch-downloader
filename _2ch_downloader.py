@@ -5,6 +5,7 @@ __desc__ = "Download all images of 2ch.hk thread"
 __version__ = "0.0.1"
 
 import argparse
+import html
 import json
 import os
 import re
@@ -35,7 +36,7 @@ def download_thread_media(url: str, path: Path, max_directory_name_length: int) 
 
     board = response["Board"]
     thread_id = int(response["current_thread"])
-    thread_name = thread["posts"][0]["subject"]
+    thread_name = html.unescape(thread["posts"][0]["subject"])
 
     directory_name = f'{board} {thread_id} {thread_name.replace("/", "_")}'
     print(f"Thread {directory_name}")
