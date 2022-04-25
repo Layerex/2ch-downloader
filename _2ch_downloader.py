@@ -21,6 +21,7 @@ class File:
     name: str
     url: str
     size: int
+    id: str
 
 
 def download_thread_media(url: str, path: Path, max_directory_name_length: int) -> None:
@@ -50,24 +51,25 @@ def download_thread_media(url: str, path: Path, max_directory_name_length: int) 
     files: list[File] = []
     for post in thread["posts"]:
         for file in post["files"]:
-            files.append(File(file["fullname"], BASE_URL + file["path"], file["size"]))
+            files.append(File(file["fullname"], BASE_URL + file["path"], file["size"], file["name"].split(".")[0]))
 
     for file in files:
         download_file(file)
 
 
 def download_file(file: File) -> None:
+    file_name = f"{file.id} {file.name}"
     try:
-        st = os.stat(file.name)
+        st = os.stat(file_name)
         size = st.st_size // 1024
         if size == file.size:
-            print(f"{file.name} already downloaded", file=sys.stderr)
+            print(f"{file_name} already downloaded", file=sys.stderr)
             return
     except FileNotFoundError:
         pass
     with requests.get(file.url, stream=True) as r:
-        print(f"Downloading {file.name}", file=sys.stderr)
-        with open(file.name, "wb") as f:
+        print(f"Downloading {file_name}", file=sys.stderr)
+        with open(file_name, "wb") as f:
             shutil.copyfileobj(r.raw, f)
 
 
