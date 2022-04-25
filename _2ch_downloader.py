@@ -60,18 +60,15 @@ def download_thread_media(url: str, path: Path, max_directory_name_length: int) 
 
 def download_file(file: File) -> None:
     filename = f"{file.id} {file.name}"
-    try:
-        st = os.stat(filename)
-        size = st.st_size // 1024
-        if size == file.size:
-            print(f"{filename} already downloaded", file=sys.stderr)
-            return
-    except FileNotFoundError:
-        pass
-    with requests.get(file.url, stream=True) as r:
-        print(f"Downloading {filename} ({file.size} KB)", file=sys.stderr)
-        with open(filename, "wb") as f:
-            shutil.copyfileobj(r.raw, f)
+    # Иногда ни размер файла, ни его хеш, отдаваемые api, не соответствуют действительности
+    # Проверять их бессмысленно
+    if os.path.exists(filename):
+        print(f"{filename} has been already downloaded", file=sys.stderr)
+    else:
+        with requests.get(file.url) as r:
+            print(f"Downloading {filename} ({file.size} KB)", file=sys.stderr)
+            with open(filename, "wb") as f:
+                shutil.copyfileobj(r.raw, f)
 
 
 def thread_url(url: str) -> str:
