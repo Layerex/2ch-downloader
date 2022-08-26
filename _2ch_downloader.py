@@ -34,7 +34,7 @@ def download_thread_media(url: str, path: Path, max_directory_name_length: int) 
 
     thread = response["threads"][0]
 
-    board = response["Board"]
+    board = response["board"]["name"]
     thread_id = int(response["current_thread"])
     thread_name = html.unescape(thread["posts"][0]["subject"])
 
@@ -51,15 +51,16 @@ def download_thread_media(url: str, path: Path, max_directory_name_length: int) 
 
     files: list[File] = []
     for post in thread["posts"]:
-        for file in post["files"]:
-            files.append(
-                File(
-                    file["fullname"],
-                    BASE_URL + file["path"],
-                    file["size"],
-                    file["name"].split(".")[0],
+        if post["files"]:
+            for file in post["files"]:
+                files.append(
+                    File(
+                        file["fullname"],
+                        BASE_URL + file["path"],
+                        file["size"],
+                        file["name"].split(".")[0],
+                    )
                 )
-            )
 
     for file in files:
         download_file(file)
