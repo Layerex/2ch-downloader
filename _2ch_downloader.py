@@ -69,7 +69,7 @@ def download_file(file: File) -> None:
     # Иногда ни размер файла, ни его хеш, отдаваемые api, не соответствуют действительности
     # Проверять их бессмысленно
     if os.path.exists(filename):
-        print(f"{filename} has been already downloaded", file=sys.stderr)
+        print(f"{filename} has already been downloaded", file=sys.stderr)
     else:
         print(f"Downloading {filename} ({file.size} KB)", file=sys.stderr)
         r = requests.get(file.url)
