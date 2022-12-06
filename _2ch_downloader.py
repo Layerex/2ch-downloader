@@ -84,7 +84,7 @@ def thread_url(url: str) -> str:
         r"(?:https?:\/\/)?2ch.hk\/[a-z]+\/res\/[0-9]+.html", flags=re.I
     )
     if not thread_url_regex.match(url):
-        raise ValueError("Provided url is not a thread url")
+        raise ValueError("Provided url is not a 2ch.hk thread url")
     return url
 
 
