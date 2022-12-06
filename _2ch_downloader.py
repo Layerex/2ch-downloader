@@ -51,12 +51,13 @@ def download_thread_media(url: str, path: Path, max_directory_name_length: int) 
     for post in thread["posts"]:
         if post["files"]:
             for file in post["files"]:
+                basename, extension = os.path.splitext(file["name"])
                 files.append(
                     File(
-                        file["fullname"],
+                        file["fullname"] or f'Sticker{extension}',
                         BASE_URL + file["path"],
                         file["size"],
-                        file["name"].split(".")[0],
+                        basename,
                     )
                 )
 
