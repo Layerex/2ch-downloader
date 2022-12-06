@@ -2,7 +2,7 @@
 
 __prog__ = "2ch-downloader"
 __desc__ = "Download all files of 2ch.hk thread."
-__version__ = "0.0.2"
+__version__ = "0.0.3"
 
 import argparse
 import html
