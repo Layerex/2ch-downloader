@@ -43,8 +43,6 @@ def download_thread_media(url: str, path: Path, max_directory_name_length: int) 
     if len(directory_name) > max_directory_name_length:
         directory_name = directory_name[:max_directory_name_length]
 
-    if not path.is_dir():
-        path = path.parent
     path = path / directory_name
     os.makedirs(path, exist_ok=True)
     os.chdir(path)
