@@ -89,7 +89,7 @@ def thread_url(url: str) -> str:
 
 
 def main():
-    parser = argparse.ArgumentParser(prog=__prog__)
+    parser = argparse.ArgumentParser(prog=__prog__, description=__desc__)
     parser.add_argument(
         "url",
         metavar="URL",
