@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 __prog__ = "2ch-downloader"
-__desc__ = "Download all images of 2ch.hk thread"
+__desc__ = "Download all files of 2ch.hk thread."
 __version__ = "0.0.2"
 
 import argparse

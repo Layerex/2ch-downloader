@@ -1,6 +1,6 @@
 # 2ch-downloader
 
-Download all images of 2ch.hk thread
+Download all files of 2ch.hk thread.
 
 ## Installation
 
