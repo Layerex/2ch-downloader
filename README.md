@@ -13,6 +13,8 @@ pip install 2ch-downloader
 ```
 usage: 2ch-downloader [-h] [-d DIRECTORY] [--max-directory-name-length LENGTH] URL
 
+Download all files of 2ch.hk thread.
+
 positional arguments:
   URL                   Thread url
 
